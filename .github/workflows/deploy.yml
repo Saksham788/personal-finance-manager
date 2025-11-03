@@ -17,26 +17,31 @@ jobs:
         with:
           node-version: 18
 
-      # 🟢 Backend Setup
+      # 🟢 Verify folder structure (Debugging Step)
+      - name: List repo structure
+        run: |
+          echo "== PROJECT STRUCTURE =="
+          ls -R
+
+      # 🟢 Backend dependencies
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      # 🟢 Frontend Setup
+      # 🟢 Frontend dependencies
       - name: Install frontend dependencies
         working-directory: ./frontend/client
         run: npm install
 
-      # ✅ Fix for CRA build path issue
-      - name: Set environment for React build
-        run: echo "CI=false" >> $GITHUB_ENV
-
-      # 🟢 Build frontend
+      # 🟢 Build frontend (force path check)
       - name: Build frontend
-        working-directory: ./frontend/client
-        run: npm run build
+        run: |
+          cd frontend/client
+          pwd
+          ls
+          npm run build
 
-      # 🟢 Upload frontend build
+      # 🟢 Upload build artifact
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
         with:
