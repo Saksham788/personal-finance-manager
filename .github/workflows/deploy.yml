@@ -2,7 +2,8 @@ name: CI/CD Pipeline - Finance Manager
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -10,40 +11,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # 🟢 Verify folder structure (Debugging Step)
-      - name: List repo structure
-        run: |
-          echo "== PROJECT STRUCTURE =="
-          ls -R
-
-      # 🟢 Backend dependencies
-      - name: Install backend dependencies
-        working-directory: ./backend
-        run: npm install
-
-      # 🟢 Frontend dependencies
-      - name: Install frontend dependencies
-        working-directory: ./frontend/client
-        run: npm install
-
-      # 🟢 Build frontend (force path check)
       - name: Build frontend
         run: |
           cd frontend/client
-          pwd
-          ls
+          npm ci
           npm run build
 
-      # 🟢 Upload build artifact
-      - name: Upload frontend build
-        uses: actions/upload-artifact@v4
+      - name: Upload frontend build artifact
+        uses: actions/upload-artifact@v3
         with:
           name: frontend-build
-          path: ./frontend/client/build
+          path: frontend/client/build
