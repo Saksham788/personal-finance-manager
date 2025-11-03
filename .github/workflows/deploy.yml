@@ -12,29 +12,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # 🟢 Backend setup
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      # 🟢 Frontend setup
       - name: Install frontend dependencies
         working-directory: ./frontend/client
         run: npm install
 
-      # 🟢 Build frontend
       - name: Build frontend
         working-directory: ./frontend/client
         run: npm run build
 
-      # 🟢 Upload frontend build
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path: frontend/client/build
+          path: ./frontend/client/build
