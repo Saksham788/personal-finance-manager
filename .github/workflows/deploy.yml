@@ -27,12 +27,16 @@ jobs:
         working-directory: ./frontend/client
         run: npm install
 
+      # ✅ Fix for CRA build path issue
+      - name: Set environment for React build
+        run: echo "CI=false" >> $GITHUB_ENV
+
       # 🟢 Build frontend
       - name: Build frontend
         working-directory: ./frontend/client
         run: npm run build
 
-      # 🟢 Upload frontend build (for artifacts)
+      # 🟢 Upload frontend build
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
         with:
