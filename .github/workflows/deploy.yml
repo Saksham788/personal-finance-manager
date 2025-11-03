@@ -1,9 +1,8 @@
-name: Build and Deploy
+name: CI/CD Pipeline - Finance Manager
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -16,29 +15,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
 
-      # 🟢 Install backend dependencies
+      # 🟢 Backend Setup
       - name: Install backend dependencies
-        run: |
-          cd backend
-          npm install
+        working-directory: ./backend
+        run: npm install
 
-      # 🟢 Install frontend dependencies
+      # 🟢 Frontend Setup
       - name: Install frontend dependencies
-        run: |
-          cd frontend/client
-          npm install
+        working-directory: ./frontend/client
+        run: npm install
 
-      # 🟢 Build frontend (main fix here)
+      # 🟢 Build frontend
       - name: Build frontend
-        run: |
-          cd frontend/client
-          npm run build
+        working-directory: ./frontend/client
+        run: npm run build
 
-      # 🟢 Upload frontend build (using v4)
+      # 🟢 Upload frontend build (for artifacts)
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path: frontend/client/build
+          path: ./frontend/client/build
