@@ -32,7 +32,7 @@ jobs:
         working-directory: ./frontend/client
         run: npm run build
 
-      # 🟢 Upload frontend build artifact
+      # 🟢 Upload frontend build
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
         with:
