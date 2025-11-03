@@ -1,8 +1,9 @@
-name: CI/CD Pipeline - Finance Manager
+name: Build and Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -12,34 +13,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Configure Git identity
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
 
-      # Backend dependencies
+      # 🟢 Install backend dependencies
       - name: Install backend dependencies
-        working-directory: ./backend
-        run: npm install
+        run: |
+          cd backend
+          npm install
 
-      # Frontend dependencies
+      # 🟢 Install frontend dependencies
       - name: Install frontend dependencies
-        working-directory: ./frontend/client
-        run: npm install
+        run: |
+          cd frontend/client
+          npm install
 
-      # Build frontend (path fixed)
+      # 🟢 Build frontend (main fix here)
       - name: Build frontend
-        working-directory: ./frontend/client
-        run: npm run build
+        run: |
+          cd frontend/client
+          npm run build
 
-      # Upload build folder
+      # 🟢 Upload frontend build (using v4)
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path: ./frontend/client/build
+          path: frontend/client/build
