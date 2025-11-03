@@ -3,7 +3,7 @@ name: Deploy Frontend
 on:
   push:
     branches:
-      - main  # ya 'master' agar tera branch naam master hai
+      - main  # Change to master if your repo uses master
 
 jobs:
   build:
@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # ✅ ensures git history is complete to avoid exit code 128
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
