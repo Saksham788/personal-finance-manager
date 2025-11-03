@@ -18,9 +18,9 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies and build
-        working-directory: ./frontend/client
+      - name: Install dependencies and build frontend
         run: |
+          cd frontend/client
           npm install
           npm run build
 
