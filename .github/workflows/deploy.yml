@@ -17,12 +17,12 @@ jobs:
         with:
           node-version: 18
 
-      # 🟢 Backend Setup
+      # 🟢 Backend setup
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      # 🟢 Frontend Setup
+      # 🟢 Frontend setup
       - name: Install frontend dependencies
         working-directory: ./frontend/client
         run: npm install
@@ -31,3 +31,10 @@ jobs:
       - name: Build frontend
         working-directory: ./frontend/client
         run: npm run build
+
+      # 🟢 Upload build artifact (for deploy or debugging)
+      - name: Upload frontend build
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-build
+          path: frontend/client/build
