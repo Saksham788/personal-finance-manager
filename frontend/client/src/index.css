@@ -1,0 +1,88 @@
+/* Light mode defaults */
+:root{
+  --bg-color: #f3f4f6;
+  --text-color: #111827;
+  --card-color: #ffffff;
+  --primary-color: #2563eb;
+  --input-bg: #ffffff;
+  --border-color: #ddd;
+}
+
+/* Dark Mode Theme */
+.dark-mode {
+  --bg-color: #121215;
+  --text-color: #e6e7e8;
+  --card-color: #1f1f23;
+  --primary-color: #3b82f6;
+  --input-bg: #222226;
+  --border-color: #444;
+}
+
+/* Apply global changes */
+body{
+  font-family: Arial, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin:0;
+  padding:0;
+  transition: background .25s ease, color .25s ease;
+}
+
+/* Center card (Login / Register page) */
+.center-card{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+/* Card styles */
+.card{
+  background: var(--card-color);
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.08);
+  width:320px;
+  transition: background .25s ease, color .25s ease;
+}
+
+/* Inputs */
+input, select, textarea{
+  width:100%;
+  padding:8px;
+  margin:6px 0;
+  border-radius:4px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  border:1px solid var(--border-color);
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+
+/* Buttons */
+button{
+  padding:8px 12px;
+  margin-left:6px;
+  border:none;
+  background: var(--primary-color);
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+  transition: background .25s ease;
+}
+
+/* Tables update */
+table, th, td{
+  border:1px solid var(--border-color);
+  padding:6px;
+  transition: border-color .25s ease;
+}
+
+/* Dark mode toggle button */
+.dark-toggle {
+  background: var(--primary-color);
+  color:#fff;
+  padding:6px 10px;
+  margin-left:10px;
+  cursor:pointer;
+  border-radius:6px;
+}
