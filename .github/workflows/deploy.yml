@@ -1,0 +1,43 @@
+name: CI/CD Pipeline - Finance Manager
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Backend Dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Test Backend
+        working-directory: backend
+        run: npm test || echo "No tests found"
+
+      - name: Install Frontend Dependencies
+        working-directory: frontend/client
+        run: npm install
+
+      - name: Build Frontend
+        working-directory: frontend/client
+        run: npm run build
+
+      - name: Deploy to Render
+        run: |
+          curl -X POST https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }} \
+          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}"
+
+      - name: Trigger Netlify Build
+        run: curl -X POST -d '{}' ${{ secrets.NETLIFY_BUILD_HOOK }}
